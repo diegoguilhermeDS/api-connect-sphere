@@ -4,10 +4,10 @@ import { Client } from '../entities/client.entity';
 
 export abstract class ClientRepository {
   abstract create(data: CreateClientDto): Promise<Client> | Client;
- /*  abstract findAll(): Promise<Client[]> | Client[];
-  abstract findOne(
-    id: string,
-  ): Promise<Client | undefined> | Client | undefined;
+  abstract findAll(): Promise<Client[]> | Client[];
+  abstract findOne(id: string): Promise<Client | undefined> | Client | undefined;
+  abstract findByEmail(email: string): Promise<Client> | Client
+  abstract findByPhone(phone: string): Promise<Client> | Client
   abstract update(id: string, data: UpdateClientDto): Promise<Client> | Client;
-  abstract delete(id: string): Promise<void> | void; */
+  abstract delete(id: string): Promise<void> | void; 
 }

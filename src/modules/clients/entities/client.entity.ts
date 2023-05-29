@@ -8,11 +8,12 @@ export class Client {
   @Exclude()
   password: string;
 
-  created_at: string;
   is_active: boolean;
+  created_at: string;
 
   constructor() {
     this.id = randomUUID();
+    this.name = this.name
     this.is_active = true
     this.created_at = new Date().toISOString();
   }

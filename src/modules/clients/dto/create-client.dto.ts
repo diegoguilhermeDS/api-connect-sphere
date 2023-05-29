@@ -4,6 +4,7 @@ import {
   IsNotEmpty,
   MinLength,
   IsDate,
+  IsEmail,
 } from 'class-validator';
 import { Transform } from 'class-transformer';
 import { hashSync } from 'bcryptjs';
@@ -12,6 +13,14 @@ export class CreateClientDto {
   @IsString()
   @IsNotEmpty()
   name: string;
+
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
+
+  @IsString()
+  @IsNotEmpty()
+  phone: string;
 
   @IsString()
   @IsNotEmpty()

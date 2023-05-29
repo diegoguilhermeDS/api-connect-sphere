@@ -1,28 +1,66 @@
-import { Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
 import { ClientRepository } from './repositories/clients.repository';
 
 @Injectable()
 export class ClientsService {
-  constructor(private clientRepository: ClientRepository){}
-  create(createClientDto: CreateClientDto) {
-    return this.clientRepository.create(createClientDto)
+  constructor(private clientRepository: ClientRepository) {}
+  async create(createClientDto: CreateClientDto) {
+    const findClientByEmail = await this.clientRepository.findByEmail(
+      createClientDto.email,
+    );
+    if (findClientByEmail) {
+      throw new ConflictException('Client with this e-mail already exists');
+    }
+
+    const findClientByPhone = await this.clientRepository.findByPhone(
+      createClientDto.phone,
+    );
+    if (findClientByPhone) {
+      throw new ConflictException('Client with this phone already exists');
+    }
+
+    const newClient = await this.clientRepository.create(createClientDto);
+    return newClient;
   }
 
-  findAll() {
-    return `This action returns all clients`;
+  async findAll() {
+    const clientsList = await this.clientRepository.findAll();
+    return clientsList;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} client`;
+  async findOne(id: string) {
+    const client = await this.clientRepository.findOne(id);
+    if (!client) {
+      throw new NotFoundException('Client not found');
+    }
+
+    return client;
   }
 
-  update(id: number, updateClientDto: UpdateClientDto) {
-    return `This action updates a #${id} client`;
+  async update(id: string, updateClientDto: UpdateClientDto) {
+    const client = await this.clientRepository.findOne(id);
+    if (!client || client.is_active == false) {
+      throw new NotFoundException('Client not found');
+    }
+
+    const clientUpdate = this.clientRepository.update(id, updateClientDto);
+
+    return clientUpdate;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} client`;
+  async remove(id: string) {
+    const client = await this.clientRepository.findOne(id);
+    if (!client || client.is_active == false) {
+      throw new NotFoundException('Client not found');
+    }
+
+    await this.clientRepository.delete(id);
+    return;
   }
 }

@@ -11,45 +11,36 @@ datasource db {
 }
 
 model Client {
-  id               String             @id
-  name             String
-  password         String
-  is_active        Boolean
-  created_at       String
-  information      Information[]
-  Clients_Contacts Clients_Contacts[]
+  id          String        @id
+  name        String
+  password    String
+  is_active   Boolean
+  created_at  String
+  information Information[]
+  contacts    Contact[]
 
   @@map("clients")
 }
 
 model Contact {
-  id               String             @id
-  name             String
-  created_at       String
-  infor            Information[]
-  Clients_Contacts Clients_Contacts[]
+  id          String        @id
+  name        String
+  created_at  String
+  information Information[]
+  client      Client        @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  clientId    String
 
   @@map("contacts")
 }
 
 model Information {
   id        String   @id
-  email     String?   @unique
-  phone     String?   @unique
+  email     String?  @unique
+  phone     String?  @unique
   client    Client?  @relation(fields: [clientId], references: [id], onDelete: Cascade)
   clientId  String?
-  Contact   Contact? @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  contact   Contact? @relation(fields: [contactId], references: [id], onDelete: Cascade)
   contactId String?
 
   @@map("informations")
-}
-
-model Clients_Contacts {
-  id        String  @id
-  Client    Client  @relation(fields: [ClientId], references: [id])
-  ClientId  String
-  Contact   Contact @relation(fields: [contactId], references: [id])
-  contactId String
-
-  @@map("clients_contacts")
 }

@@ -14,5 +14,6 @@ import { InformationModule } from '../information/information.module';
     { provide: ClientRepository, useClass: ClientPrismaRepository },
   ],
   imports: [InformationModule],
+  exports: [ClientsService],
 })
 export class ClientsModule {}

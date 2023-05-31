@@ -7,7 +7,7 @@ import {
 import { CreateInformationDto } from './dto/create-information.dto';
 import { UpdateInformationDto } from './dto/update-information.dto';
 import { InformationRepository } from './repositories/information.repository';
-import { ClientRepository } from '../clients/repositories/clients.repository';
+
 
 @Injectable()
 export class InformationService {
@@ -37,7 +37,7 @@ export class InformationService {
       }
     }
 
-    if (id !== userId) {
+    if (typeUser == "client" && id !== userId) {
       throw new ForbiddenException('Insufficient permission');
     }
 
@@ -61,6 +61,7 @@ export class InformationService {
     inforId: string,
     updateInformationDto: UpdateInformationDto,
     userId: string,
+    typeUser: string
   ) {
     const information = await this.informationRepository.findOne(inforId);
     if (!information) {
@@ -85,8 +86,16 @@ export class InformationService {
       }
     }
 
-    if (information.clientId !== userId) {
+    if (typeUser === "client" && information.clientId !== userId) {
       throw new ForbiddenException('Insufficient permission');
+    }
+
+    if(typeUser === "contact") {
+      const clientIdByContact = await this.informationRepository.findContact(information.contactId)
+
+      if(clientIdByContact !== userId) {
+        throw new ForbiddenException('Insufficient permission');
+      }
     }
 
     const informationUpdate = this.informationRepository.update(
@@ -97,14 +106,22 @@ export class InformationService {
     return informationUpdate;
   }
 
-  async remove(inforId: string, userId: string) {
+  async remove(inforId: string, userId: string, typeUser: string) {
     const information = await this.informationRepository.findOne(inforId);
     if (!information) {
       throw new NotFoundException('Informations not found');
     }
 
-    if (information.clientId !== userId) {
+    if (typeUser === "client" && information.clientId !== userId) {
       throw new ForbiddenException('Insufficient permission');
+    }
+
+    if(typeUser === "contact") {
+      const clientIdByContact = await this.informationRepository.findContact(information.contactId)
+
+      if(clientIdByContact !== userId) {
+        throw new ForbiddenException('Insufficient permission');
+      }
     }
 
     await this.informationRepository.delete(inforId);

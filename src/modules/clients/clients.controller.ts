@@ -57,12 +57,12 @@ export class ClientsController {
   @Patch("infor/:inforId")
   @UseGuards(JwtAuthGuard)
   updateInformation(@Param('inforId') inforId: string, @Body() UpdateInformationDto: UpdateInformationDto, @Request() req) {
-    return this.informationService.update(inforId, UpdateInformationDto, req.user.id)
+    return this.informationService.update(inforId, UpdateInformationDto, req.user.id, "client")
   }
 
   @Delete("infor/:inforId")
   @UseGuards(JwtAuthGuard)
   removeInformation(@Param('inforId') inforId: string, @Request() req){
-    return this.informationService.remove(inforId, req.user.id)
+    return this.informationService.remove(inforId, req.user.id, "client")
   }
 }

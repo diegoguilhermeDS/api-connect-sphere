@@ -24,20 +24,20 @@ export class ContactsController {
 
   @Post()
   @UseGuards(JwtAuthGuard)
-  create(@Body() createcontactsDto: CreateContactsDto) {
-    return this.contactsService.create(createcontactsDto);
+  create(@Body() createcontactsDto: CreateContactsDto, @Request() req) { 
+    return this.contactsService.create(createcontactsDto, req.user.id);
   }
 
   @Get()
   @UseGuards(JwtAuthGuard)
-  findAll() {
-    return this.contactsService.findAll();
+  findAll(@Request() req) {
+    return this.contactsService.findAll(req.user.id);
   }
 
   @Get(':id')
   @UseGuards(JwtAuthGuard)
-  findOne(@Param('id') id: string) {
-    return this.contactsService.findOne(id);
+  findOne(@Param('id') id: string, @Request() req) {
+    return this.contactsService.findOne(id, req.user.id);
   }
 
   @Patch(':id')
@@ -45,14 +45,15 @@ export class ContactsController {
   update(
     @Param('id') id: string,
     @Body() updatecontactsDto: UpdateContactsDto,
+    @Request() req
   ) {
-    return this.contactsService.update(id, updatecontactsDto);
+    return this.contactsService.update(id, updatecontactsDto, req.user.id);
   }
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
-  remove(@Param('id') id: string) {
-    return this.contactsService.remove(id);
+  remove(@Param('id') id: string, @Request() req) {
+    return this.contactsService.remove(id, req.user.id);
   }
 
   @Post(":id/infor")
@@ -64,12 +65,12 @@ export class ContactsController {
   @Patch("infor/:inforId")
   @UseGuards(JwtAuthGuard)
   updateInformation(@Param('inforId') inforId: string, @Body() UpdateInformationDto: UpdateInformationDto, @Request() req) {
-    return this.informationService.update(inforId, UpdateInformationDto, req.user.id)
+    return this.informationService.update(inforId, UpdateInformationDto, req.user.id, "contact")
   }
 
   @Delete("infor/:inforId")
   @UseGuards(JwtAuthGuard)
   removeInformation(@Param('inforId') inforId: string, @Request() req){
-    return this.informationService.remove(inforId, req.user.id)
+    return this.informationService.remove(inforId, req.user.id, "contact")
   }
 }

@@ -76,14 +76,27 @@ export class ClientPrismaRepository implements ClientRepository {
     return plainToInstance(Client, client);
   }
 
-  async findByEmail(email: string): Promise<Client> {
+  async findByEmail(email: string): Promise<any> {
+    const infor = await this.prisma.information.findUnique({
+      where: {
+        email,
+      }
+    });
+    if (infor) {
+      return infor
+    }
+
+    return null;
+  }
+
+  async findByEmailToAuth(email: string): Promise<Client> {
     const infor = await this.prisma.information.findUnique({
       where: {
         email,
       },
-      select: {
-        client: true,
-      },
+      include: {
+        client: true
+      }
     });
     if (infor) {
       return infor.client
@@ -92,18 +105,15 @@ export class ClientPrismaRepository implements ClientRepository {
     return null;
   }
 
-  async findByPhone(phone: string): Promise<Client> {
+  async findByPhone(phone: string): Promise<Information> {
     const infor = await this.prisma.information.findUnique({
       where: {
         phone,
       },
-      select: {
-        client: true,
-      },
     });
 
     if (infor) {
-      return plainToInstance(Client, infor.client);
+      return plainToInstance(Information, infor);
     }
 
     return null;
@@ -113,6 +123,15 @@ export class ClientPrismaRepository implements ClientRepository {
     const client = await this.prisma.client.update({
       where: { id },
       data: { ...data },
+      include: {
+        information: {
+          select: {
+            id: true,
+            email: true,
+            phone: true,
+          },
+        }
+      }
     });
 
     return plainToInstance(Client, client);

@@ -40,18 +40,24 @@ export class ClientInMemoryRepository implements ClientRepository {
     return plainToInstance(Client, client);
   }
 
-  findByEmail(email: string): Client | Promise<Client> {
+  findByEmail(email: string): Promise<Information> | Information {
     const infor = information.find((infor) => infor.email == email);
 
-    const client =  clients.find(client => client.id == infor.clientId)
+    return plainToInstance(Information, infor)
+  }
+
+  findByEmailToAuth(email: string): Promise<Client> | Client {
+    const infor = information.find((infor) => infor.email == email);
+
+    const client = clients.find((client) => client.id == infor.clientId)
+
     return plainToInstance(Client, client)
   }
 
-  findByPhone(phone: string): Client | Promise<Client> {
+  findByPhone(phone: string): Information | Promise<Information> {
     const infor = information.find((infor) => infor.phone == phone);
 
-    const client =  clients.find(client => client.id == infor.clientId)
-    return plainToInstance(Client, client)
+    return plainToInstance(Information, infor)
   }
 
   update(id: string, data: UpdateClientDto): Promise<Client> | Client {

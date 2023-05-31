@@ -5,6 +5,7 @@ import { CreateInformationDto } from '../../dto/create-information.dto';
 import { Information } from '../../entities/information.entity';
 import { plainToInstance } from 'class-transformer';
 import { UpdateInformationDto } from '../../dto/update-information.dto';
+import { Contact } from 'src/modules/contacts/entities/contact.entity';
 
 @Injectable()
 export class InformationPrismaRepository implements InformationRepository {
@@ -36,7 +37,7 @@ export class InformationPrismaRepository implements InformationRepository {
         throw new NotFoundException('Contact not found');
       }
 
-      inforData.contactId = contact.id
+      inforData.contactId = contact.id;
     }
 
     const newInformation = await this.prisma.information.create({
@@ -68,6 +69,22 @@ export class InformationPrismaRepository implements InformationRepository {
     });
 
     return plainToInstance(Information, information);
+  }
+
+  async findContact(contactId: string): Promise<String> {
+    const contact = await this.prisma.contact.findUnique({
+      where: { id: contactId },
+      include: {
+        client: true
+      }
+    });
+
+    if (contact) {
+      return contact.clientId
+    }
+
+    return null
+
   }
 
   async update(

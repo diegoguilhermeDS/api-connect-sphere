@@ -11,7 +11,7 @@ export class AuthService {
   ) {}
 
   async validateClient(clientEmail: string, clientPassword: string) {
-    const client = await this.clientsService.findByEmail(clientEmail);
+    const client = await this.clientsService.findByEmailToAuth(clientEmail);
     if (client) {
       const passwordMatch = await compare(clientPassword, client.password);
       if (passwordMatch) {
@@ -23,7 +23,7 @@ export class AuthService {
   }
 
   async login(email: string) {
-    const client = await this.clientsService.findByEmail(email);
+    const client = await this.clientsService.findByEmailToAuth(email);
     return {
       token: this.jwtService.sign({ email }, { subject: client.id }),
     };

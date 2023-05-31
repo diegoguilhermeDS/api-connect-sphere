@@ -45,7 +45,12 @@ export class ClientsService {
   }
 
   async findByEmail(email: string) {
-    const client = await this.clientRepository.findByEmail(email)
+    const information = await this.clientRepository.findByEmail(email)
+    return information
+  }
+
+  async findByEmailToAuth(email: string) {
+    const client = await this.clientRepository.findByEmailToAuth(email)
     return client
   }
 

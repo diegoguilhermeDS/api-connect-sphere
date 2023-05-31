@@ -7,7 +7,7 @@ import { ContactRepository } from './repositories/contacts.repository';
 @Injectable()
 export class ContactsService {
   constructor(private contactRepository: ContactRepository) {}
-  async create(createcontactsDto: CreateContactsDto) {
+  async create(createcontactsDto: CreateContactsDto, clientId: string) {
     const findContactByEmail = await this.contactRepository.findByEmail(
       createcontactsDto.email,
     );
@@ -22,18 +22,18 @@ export class ContactsService {
       throw new ConflictException('Contact with this phone already exists');
     }
 
-    const newContact = await this.contactRepository.create(createcontactsDto);
+    const newContact = await this.contactRepository.create(createcontactsDto, clientId);
 
     return newContact
   }
 
-  async findAll() {
-    const contactsList = await this.contactRepository.findAll();
+  async findAll(clientId: string) {
+    const contactsList = await this.contactRepository.findAll(clientId);
     return contactsList
   }
 
-  async findOne(id: string) {
-    const contact = await this.contactRepository.findOne(id)
+  async findOne(id: string, clientId: string) {
+    const contact = await this.contactRepository.findOne(id, clientId)
     if (!contact) {
       throw new NotFoundException("Contact not found")
     }
@@ -41,8 +41,8 @@ export class ContactsService {
     return contact
   }
 
-  async update(id: string, updateContactsDto: UpdateContactsDto) {
-    const contact = await this.contactRepository.findOne(id)
+  async update(id: string, updateContactsDto: UpdateContactsDto, clientId: string) {
+    const contact = await this.contactRepository.findOne(id, clientId)
     if (!contact) {
       throw new NotFoundException("Contact not found")
     }
@@ -52,8 +52,8 @@ export class ContactsService {
     return contactUpdate;
   }
 
-  async remove(id: string) {
-    const contact = await this.contactRepository.findOne(id)
+  async remove(id: string, clientId: string) {
+    const contact = await this.contactRepository.findOne(id, clientId)
     if (!contact) {
       throw new NotFoundException("Contact not found")
     }

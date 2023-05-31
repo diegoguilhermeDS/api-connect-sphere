@@ -10,18 +10,34 @@ import { UpdateInformationDto } from '../../dto/update-information.dto';
 export class InformationPrismaRepository implements InformationRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create(id: string, data: CreateInformationDto): Promise<Information> {
-    const client = await this.prisma.client.findUnique({
-      where: { id },
-    });
-    if (!client) {
-      throw new NotFoundException('Client not found');
-    }
-
+  async create(
+    id: string,
+    data: CreateInformationDto,
+    typeUser: string,
+  ): Promise<Information> {
     const inforData = new Information();
 
     Object.assign(inforData, { ...data });
-    inforData.clientId = client.id;
+
+    if (typeUser === 'client') {
+      const client = await this.prisma.client.findUnique({
+        where: { id },
+      });
+      if (!client) {
+        throw new NotFoundException('Client not found');
+      }
+
+      inforData.clientId = client.id;
+    } else {
+      const contact = await this.prisma.contact.findUnique({
+        where: { id },
+      });
+      if (!contact) {
+        throw new NotFoundException('Contact not found');
+      }
+
+      inforData.contactId = contact.id
+    }
 
     const newInformation = await this.prisma.information.create({
       data: { ...inforData },

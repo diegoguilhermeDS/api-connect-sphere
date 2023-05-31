@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
+  Request
 } from '@nestjs/common';
 import { ClientsService } from './clients.service';
 import { CreateClientDto } from './dto/create-client.dto';
@@ -13,6 +15,7 @@ import { UpdateClientDto } from './dto/update-client.dto';
 import { InformationService } from '../information/information.service';
 import { CreateInformationDto } from "../information/dto/create-information.dto"
 import { UpdateInformationDto } from "../information/dto/update-information.dto"
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('clients')
 export class ClientsController {
@@ -34,27 +37,32 @@ export class ClientsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateClientDto: UpdateClientDto) {
-    return this.clientsService.update(id, updateClientDto);
+  @UseGuards(JwtAuthGuard)
+  update(@Param('id') id: string, @Body() updateClientDto: UpdateClientDto, @Request() req) {
+    return this.clientsService.update(id, updateClientDto, req.user.id);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.clientsService.remove(id);
+  @UseGuards(JwtAuthGuard)
+  remove(@Param('id') id: string, @Request() req) {
+    return this.clientsService.remove(id, req.user.id);
   } 
 
   @Post(":id/infor")
-  createInformation(@Param('id') id: string, @Body() createInformationDto: CreateInformationDto) {
-    return this.informationService.create(id, createInformationDto)
+  @UseGuards(JwtAuthGuard)
+  createInformation(@Param('id') id: string, @Body() createInformationDto: CreateInformationDto, @Request() req) {
+    return this.informationService.create(id, createInformationDto, req.user.id, "client")
   }
 
-  @Patch("infor/:id")
-  updateInformation(@Param('id') inforId: string, @Body() UpdateInformationDto: UpdateInformationDto) {
-    return this.informationService.update(inforId, UpdateInformationDto)
+  @Patch("infor/:inforId")
+  @UseGuards(JwtAuthGuard)
+  updateInformation(@Param('inforId') inforId: string, @Body() UpdateInformationDto: UpdateInformationDto, @Request() req) {
+    return this.informationService.update(inforId, UpdateInformationDto, req.user.id)
   }
 
   @Delete("infor/:inforId")
-  removeInformation(@Param('inforId') inforId: string){
-    return this.informationService.remove(inforId)
+  @UseGuards(JwtAuthGuard)
+  removeInformation(@Param('inforId') inforId: string, @Request() req){
+    return this.informationService.remove(inforId, req.user.id)
   }
 }

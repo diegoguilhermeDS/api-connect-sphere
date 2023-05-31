@@ -1,5 +1,6 @@
 import {
   ConflictException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -12,7 +13,12 @@ import { ClientRepository } from '../clients/repositories/clients.repository';
 export class InformationService {
   constructor(private informationRepository: InformationRepository) {}
 
-  async create(id: string, createInformationDto: CreateInformationDto) {
+  async create(
+    id: string,
+    createInformationDto: CreateInformationDto,
+    userId: string,
+    typeUser: string
+  ) {
     if (createInformationDto.email) {
       const findEmail = await this.informationRepository.findInforByEmail(
         createInformationDto.email,
@@ -31,9 +37,14 @@ export class InformationService {
       }
     }
 
+    if (id !== userId) {
+      throw new ForbiddenException('Insufficient permission');
+    }
+
     const newInformation = await this.informationRepository.create(
       id,
       createInformationDto,
+      typeUser
     );
     return newInformation;
   }
@@ -46,7 +57,11 @@ export class InformationService {
     return information;
   }
 
-  async update(inforId: string, updateInformationDto: UpdateInformationDto) {
+  async update(
+    inforId: string,
+    updateInformationDto: UpdateInformationDto,
+    userId: string,
+  ) {
     const information = await this.informationRepository.findOne(inforId);
     if (!information) {
       throw new NotFoundException('Informations not found');
@@ -70,6 +85,10 @@ export class InformationService {
       }
     }
 
+    if (information.clientId !== userId) {
+      throw new ForbiddenException('Insufficient permission');
+    }
+
     const informationUpdate = this.informationRepository.update(
       inforId,
       updateInformationDto,
@@ -78,10 +97,14 @@ export class InformationService {
     return informationUpdate;
   }
 
-  async remove(inforId: string) {
+  async remove(inforId: string, userId: string) {
     const information = await this.informationRepository.findOne(inforId);
     if (!information) {
       throw new NotFoundException('Informations not found');
+    }
+
+    if (information.clientId !== userId) {
+      throw new ForbiddenException('Insufficient permission');
     }
 
     await this.informationRepository.delete(inforId);

@@ -2,6 +2,7 @@ import {
   ConflictException,
   Injectable,
   NotFoundException,
+  ForbiddenException
 } from '@nestjs/common';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
@@ -43,21 +44,34 @@ export class ClientsService {
     return client;
   }
 
-  async update(id: string, updateClientDto: UpdateClientDto) {
+  async findByEmail(email: string) {
+    const client = await this.clientRepository.findByEmail(email)
+    return client
+  }
+
+  async update(id: string, updateClientDto: UpdateClientDto, userId: string) {
     const client = await this.clientRepository.findOne(id);
     if (!client || client.is_active == false) {
       throw new NotFoundException('Client not found');
     }
 
-    const clientUpdate = this.clientRepository.update(id, updateClientDto);
+    if(id !== userId) {
+      throw new ForbiddenException("Insufficient permission")
+    }
+
+    const clientUpdate = await this.clientRepository.update(id, updateClientDto);
 
     return clientUpdate;
   }
 
-  async remove(id: string) {
+  async remove(id: string, userId: string) {
     const client = await this.clientRepository.findOne(id);
     if (!client || client.is_active == false) {
       throw new NotFoundException('Client not found');
+    }
+
+    if(id !== userId) {
+      throw new ForbiddenException("Insufficient permission")
     }
 
     await this.clientRepository.delete(id);

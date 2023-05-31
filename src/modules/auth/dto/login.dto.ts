@@ -1,15 +1,11 @@
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
-export class CreateContactsDto {
-  @IsString()
-  @IsNotEmpty()
-  name: string;
-
+export class LoginDTO {
   @IsEmail()
   @IsNotEmpty()
   email: string;
 
   @IsString()
   @IsNotEmpty()
-  phone: string;
+  password: string;
 }

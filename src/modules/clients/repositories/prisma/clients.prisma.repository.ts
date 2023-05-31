@@ -86,7 +86,7 @@ export class ClientPrismaRepository implements ClientRepository {
       },
     });
     if (infor) {
-      return plainToInstance(Client, infor.client);
+      return infor.client
     }
 
     return null;

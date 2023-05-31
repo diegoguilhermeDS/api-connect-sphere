@@ -1,9 +1,7 @@
 import {
   IsString,
-  IsBoolean,
   IsNotEmpty,
   MinLength,
-  IsDate,
   IsEmail,
 } from 'class-validator';
 import { Transform } from 'class-transformer';

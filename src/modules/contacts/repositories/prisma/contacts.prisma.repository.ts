@@ -6,7 +6,7 @@ import { UpdateContactsDto } from '../../dto/update-contact.dto';
 import { Contact } from '../../entities/contact.entity';
 import { Information } from 'src/modules/information/entities/information.entity';
 import { plainToInstance } from 'class-transformer';
-import { randomUUID } from 'crypto';
+
 
 @Injectable()
 export class ContactPrismaRepository implements ContactRepository {

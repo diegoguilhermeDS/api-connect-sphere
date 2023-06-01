@@ -9,7 +9,11 @@ export class Information {
   clientId: string;
   contactId: string;
 
-  constructor() {
+  constructor(data?: Partial<Information>) {
     this.id = randomUUID()
+    this.email = data?.email
+    this.phone = data?.phone
+    this.clientId = data?.clientId
+    this.contactId = data?.contactId
   }
 }

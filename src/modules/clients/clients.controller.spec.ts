@@ -6,7 +6,6 @@ import { Client } from './entities/client.entity';
 import { CreateClientDto } from './dto/create-client.dto';
 import { createClientMock, updateClientMock } from '../../../test/mock/client';
 import { UpdateClientDto } from './dto/update-client.dto';
-import { AuthService } from '../auth/auth.service';
 import { CreateInformationDto } from '../information/dto/create-information.dto';
 import {
   createInformationMock,
@@ -60,11 +59,14 @@ const updateInformation = new Information({
   phone: '988554471',
 });
 
+const request = {
+  user: clientEntityList[0],
+};
+
 describe('ClientsController', () => {
   let clientController: ClientsController;
   let clientService: ClientsService;
   let informationService: InformationService;
-  let authService: AuthService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -85,14 +87,7 @@ describe('ClientsController', () => {
           useValue: {
             create: jest.fn().mockResolvedValue(newInformation),
             update: jest.fn().mockResolvedValue(updateInformation),
-            remove: jest.fn().mockResolvedValue
-            (undefined),
-          },
-        },
-        {
-          provide: AuthService,
-          useValue: {
-            login: jest.fn().mockResolvedValue({ token: String }),
+            remove: jest.fn().mockResolvedValue(undefined),
           },
         },
       ],
@@ -101,7 +96,6 @@ describe('ClientsController', () => {
     clientController = module.get<ClientsController>(ClientsController);
     clientService = module.get<ClientsService>(ClientsService);
     informationService = module.get<InformationService>(InformationService);
-    authService = module.get<AuthService>(AuthService);
   });
 
   it('should be defined', () => {
@@ -165,10 +159,6 @@ describe('ClientsController', () => {
     it('Success: Must be albe to update a client', async () => {
       const body: UpdateClientDto = updateClientMock.clientUpdate;
 
-      const request = {
-        user: clientEntityList[0],
-      };
-
       const result = await clientController.update(
         clientEntityList[0].id,
         body,
@@ -183,10 +173,6 @@ describe('ClientsController', () => {
 
       const body: UpdateClientDto = updateClientMock.clientUpdate;
 
-      const request = {
-        user: clientEntityList[0],
-      };
-
       expect(
         clientController.update(clientEntityList[0].id, body, request),
       ).rejects.toThrowError();
@@ -195,9 +181,6 @@ describe('ClientsController', () => {
 
   describe('DELETE /clients/:id', () => {
     it('Success: Must be albe to delete a client', async () => {
-      const request = {
-        user: clientEntityList[0],
-      };
 
       const result = await clientController.remove(
         clientEntityList[0].id,
@@ -210,10 +193,6 @@ describe('ClientsController', () => {
     it('Error: Must not be albe to delete a client', () => {
       jest.spyOn(clientService, 'remove').mockRejectedValueOnce(new Error());
 
-      const request = {
-        user: clientEntityList[0],
-      };
-
       expect(
         clientController.remove(clientEntityList[0].id, request),
       ).rejects.toThrowError();
@@ -223,10 +202,6 @@ describe('ClientsController', () => {
   describe('POST /clients/:id/infor', () => {
     it('Success: Must be albe to create a information for client', async () => {
       const body: CreateInformationDto = createInformationMock.information;
-
-      const request = {
-        user: clientEntityList[0],
-      };
 
       const result = await clientController.createInformation(
         clientEntityList[0].id,
@@ -243,10 +218,6 @@ describe('ClientsController', () => {
 
       const body: CreateInformationDto = createInformationMock.information;
 
-      const request = {
-        user: clientEntityList[0],
-      };
-
       expect(
         clientController.createInformation(
           clientEntityList[0].id,
@@ -261,10 +232,6 @@ describe('ClientsController', () => {
     it('Success: Must be able update a information by client', async () => {
       const body: UpdateInformationDto =
         updateInformationMock.informationUpdate;
-
-      const request = {
-        user: clientEntityList[0],
-      };
 
       const result = await clientController.updateInformation(
         informationEntityList[0].id,
@@ -283,10 +250,6 @@ describe('ClientsController', () => {
       const body: UpdateInformationDto =
         updateInformationMock.informationUpdate;
 
-      const request = {
-        user: clientEntityList[0],
-      };
-
       expect(
         clientController.updateInformation(
           informationEntityList[0].id,
@@ -299,26 +262,18 @@ describe('ClientsController', () => {
 
   describe('DELETE /clients/infor/:inforId', () => {
     it('Success: Must be able to delete a information by client', async () => {
-      const request = {
-        user: clientEntityList[0],
-      };
-
       const result = await clientController.removeInformation(
         informationEntityList[0].id,
         request,
       );
 
-      expect(result).toBeUndefined()
+      expect(result).toBeUndefined();
     });
 
     it('Error: Must not be able to delete a information by client', () => {
       jest
         .spyOn(informationService, 'remove')
         .mockRejectedValueOnce(new Error());
-
-      const request = {
-        user: clientEntityList[0],
-      };
 
       expect(
         clientController.removeInformation(

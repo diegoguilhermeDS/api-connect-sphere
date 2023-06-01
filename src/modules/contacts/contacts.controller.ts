@@ -7,7 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
-  Request
+  Request,
 } from '@nestjs/common';
 import { ContactsService } from './contacts.service';
 import { CreateContactsDto } from './dto/create-contact.dto';
@@ -16,17 +16,25 @@ import { CreateInformationDto } from '../information/dto/create-information.dto'
 import { InformationService } from '../information/information.service';
 import { UpdateInformationDto } from '../information/dto/update-information.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger/dist/decorators';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger/dist/decorators';
 import { ResponseContactSwaggerDto } from './dto/swagger.dto';
-import { badRequestDto } from 'src/swagger/badRequest.dto';
-import { ErrorDto } from 'src/swagger/Error.dto';
+import { badRequestDto } from '../../swagger/badRequest.dto';
+import { ErrorDto } from '../../swagger/Error.dto';
 import { ResponseInformationSwaggerDto } from '../information/dto/swagger.dto';
 
 @ApiTags('Contacts')
-
 @Controller('contacts')
 export class ContactsController {
-  constructor(private readonly contactsService: ContactsService, private readonly informationService: InformationService) {}
+  constructor(
+    private readonly contactsService: ContactsService,
+    private readonly informationService: InformationService,
+  ) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a new contact' })
@@ -47,7 +55,7 @@ export class ContactsController {
   })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  create(@Body() createcontactsDto: CreateContactsDto, @Request() req) { 
+  create(@Body() createcontactsDto: CreateContactsDto, @Request() req) {
     return this.contactsService.create(createcontactsDto, req.user.id);
   }
 
@@ -57,7 +65,7 @@ export class ContactsController {
     status: 200,
     description: 'List all contact',
     type: ResponseContactSwaggerDto,
-    isArray: true
+    isArray: true,
   })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
@@ -72,7 +80,6 @@ export class ContactsController {
     type: String,
     required: true,
     description: 'inform an ID to bring a contact',
-    
   })
   @ApiOperation({ summary: 'Retrieve a contact' })
   @ApiResponse({
@@ -102,7 +109,6 @@ export class ContactsController {
     type: String,
     required: true,
     description: 'inform an ID to update a contact',
-    
   })
   @ApiOperation({ summary: 'Update a contact' })
   @ApiResponse({
@@ -124,7 +130,7 @@ export class ContactsController {
   update(
     @Param('id') id: string,
     @Body() updatecontactsDto: UpdateContactsDto,
-    @Request() req
+    @Request() req,
   ) {
     return this.contactsService.update(id, updatecontactsDto, req.user.id);
   }
@@ -136,7 +142,6 @@ export class ContactsController {
     type: String,
     required: true,
     description: 'inform an ID to delete a contact',
-    
   })
   @ApiOperation({ summary: 'Delete a contact' })
   @ApiResponse({
@@ -159,7 +164,7 @@ export class ContactsController {
     return this.contactsService.remove(id, req.user.id);
   }
 
-  @Post(":id/infor")
+  @Post(':id/infor')
   @ApiOperation({ summary: 'Create a new information by contact' })
   @ApiBearerAuth()
   @ApiParam({
@@ -184,11 +189,20 @@ export class ContactsController {
     type: ErrorDto,
   })
   @UseGuards(JwtAuthGuard)
-  createInformation(@Param('id') id: string, @Body() createInformationDto: CreateInformationDto, @Request() req) {
-    return this.informationService.create(id, createInformationDto, req.user.id, "contact")
+  createInformation(
+    @Param('id') id: string,
+    @Body() createInformationDto: CreateInformationDto,
+    @Request() req,
+  ) {
+    return this.informationService.create(
+      id,
+      createInformationDto,
+      req.user.id,
+      'contact',
+    );
   }
 
-  @Patch("infor/:inforId")
+  @Patch('infor/:inforId')
   @ApiOperation({ summary: 'Update a information by contact' })
   @ApiBearerAuth()
   @ApiParam({
@@ -196,7 +210,6 @@ export class ContactsController {
     type: String,
     required: true,
     description: 'inform an INFORMATION ID to update a information',
-    
   })
   @ApiResponse({
     status: 200,
@@ -214,11 +227,20 @@ export class ContactsController {
     type: ErrorDto,
   })
   @UseGuards(JwtAuthGuard)
-  updateInformation(@Param('inforId') inforId: string, @Body() UpdateInformationDto: UpdateInformationDto, @Request() req) {
-    return this.informationService.update(inforId, UpdateInformationDto, req.user.id, "contact")
+  updateInformation(
+    @Param('inforId') inforId: string,
+    @Body() UpdateInformationDto: UpdateInformationDto,
+    @Request() req,
+  ) {
+    return this.informationService.update(
+      inforId,
+      UpdateInformationDto,
+      req.user.id,
+      'contact',
+    );
   }
 
-  @Delete("infor/:inforId")
+  @Delete('infor/:inforId')
   @ApiOperation({ summary: 'Delete a information by contact' })
   @ApiBearerAuth()
   @ApiParam({
@@ -226,7 +248,6 @@ export class ContactsController {
     type: String,
     required: true,
     description: 'inform an INFORMATION ID to delete a information',
-    
   })
   @ApiResponse({
     status: 204,
@@ -243,7 +264,7 @@ export class ContactsController {
     type: ErrorDto,
   })
   @UseGuards(JwtAuthGuard)
-  removeInformation(@Param('inforId') inforId: string, @Request() req){
-    return this.informationService.remove(inforId, req.user.id, "contact")
+  removeInformation(@Param('inforId') inforId: string, @Request() req) {
+    return this.informationService.remove(inforId, req.user.id, 'contact');
   }
 }

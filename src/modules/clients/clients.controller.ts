@@ -25,8 +25,8 @@ import {
 } from '@nestjs/swagger/dist';
 import { ResponseClientSwaggerDto } from './dto/swagger.dto';
 import { ResponseInformationSwaggerDto } from '../information/dto/swagger.dto';
-import { badRequestDto } from 'src/swagger/badRequest.dto';
-import { ErrorDto } from 'src/swagger/Error.dto';
+import { badRequestDto } from '../../swagger/badRequest.dto';
+import { ErrorDto } from '../../swagger/Error.dto';
 
 @ApiTags('Clients')
 @Controller('clients')

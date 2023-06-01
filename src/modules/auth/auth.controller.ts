@@ -4,7 +4,7 @@ import { LocalAuthGuard } from './local-auth.guard';
 import { LoginDTO } from './dto/login.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger/dist/decorators';
 import { ResponseLoginSwaggerDto } from './dto/swagger.dto';
-import { ErrorDto } from 'src/swagger/Error.dto';
+import { ErrorDto } from '../..//swagger/Error.dto';
 
 @ApiTags('Login')
 

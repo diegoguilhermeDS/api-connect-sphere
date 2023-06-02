@@ -5,6 +5,9 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors({
+    origin: true,
+  });
 
   const config = new DocumentBuilder()
     .setTitle('Connect Sphere App')
@@ -30,6 +33,6 @@ async function bootstrap() {
     }),
   );
 
-  await app.listen(3000);
+  await app.listen(3001);
 }
 bootstrap();

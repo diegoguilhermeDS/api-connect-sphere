@@ -3,6 +3,7 @@ import {
   IsNotEmpty,
   MinLength,
   IsEmail,
+  Length,
 } from 'class-validator';
 import { Transform } from 'class-transformer';
 import { hashSync } from 'bcryptjs';
@@ -33,6 +34,7 @@ export class CreateClientDto {
     default: "988005454"
   })
   @IsString()
+  @Length(9, 12)
   @IsNotEmpty()
   phone: string;
 

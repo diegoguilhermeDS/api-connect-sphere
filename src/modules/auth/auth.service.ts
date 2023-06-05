@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ClientsService } from '../clients/clients.service';
 import { compare } from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
@@ -24,6 +24,11 @@ export class AuthService {
 
   async login(email: string) {
     const client = await this.clientsService.findByEmailToAuth(email);
+
+    if(client.is_active == false) {
+      throw new UnauthorizedException("Invalid credentials")
+    }
+
     return {
       token: this.jwtService.sign({ email }, { subject: client.id }),
     };

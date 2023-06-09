@@ -5,9 +5,9 @@
 
 ## 📝 Description
 
-A API Connect Sphere é uma interface de programação de aplicativos desenvolvida para o projeto Connect Sphere. Essa API oferece recursos avançados para criação e gerenciamento de clientes e seus contatos, proporcionando uma solução abrangente para a organização e comunicação eficiente dentro de uma rede de clientes. 
+The Connect Sphere API is an application programming interface developed for the Connect Sphere project. This API offers advanced features for creating and managing customers and their contacts, providing a comprehensive solution for organizing and communicating efficiently within a customer network.
 
-Com a API Connect Sphere, os desenvolvedores podem implementar facilmente funcionalidades que permitem aos usuários criar perfis de clientes, adicionar e gerenciar contatos associados a cada cliente específico.
+With the Connect Sphere API, developers can easily implement functionality that allows users to create customer profiles, add and manage contacts associated with each specific customer.
 
 ## How to run the project ?
 

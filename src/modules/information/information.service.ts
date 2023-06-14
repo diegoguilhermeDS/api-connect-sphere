@@ -115,8 +115,9 @@ export class InformationService {
     if (typeUser === "client" && information.clientId !== userId) {
       throw new ForbiddenException('Insufficient permission');
     }
-
+    
     if(typeUser === "contact") {
+      console.log(information)
       const clientIdByContact = await this.informationRepository.findContact(information.contactId)
 
       if(clientIdByContact !== userId) {

@@ -66,6 +66,9 @@ export class InformationPrismaRepository implements InformationRepository {
   async findOne(inforId: string): Promise<Information> {
     const information = await this.prisma.information.findUnique({
       where: { id: inforId },
+      include: {
+        contact: true
+      }
     });
 
     return plainToInstance(Information, information);

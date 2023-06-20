@@ -11,9 +11,9 @@ export class AuthService {
   ) {}
 
   async validateClient(clientEmail: string, clientPassword: string) {
-    const client = await this.clientsService.findByEmailToAuth(clientEmail);
-    if (client) {
-      const passwordMatch = await compare(clientPassword, client.password);
+    const infor = await this.clientsService.findByEmailToAuth(clientEmail);
+    if (infor) {
+      const passwordMatch = await compare(clientPassword, infor.client.password);
       if (passwordMatch) {
         return { email: clientEmail };
       }
@@ -23,14 +23,14 @@ export class AuthService {
   }
 
   async login(email: string) {
-    const client = await this.clientsService.findByEmailToAuth(email);
+    const infor = await this.clientsService.findByEmailToAuth(email);
 
-    if(client.is_active == false) {
+    if(infor.primary == false || infor.client.is_active == false) {
       throw new UnauthorizedException("Invalid credentials")
     }
 
     return {
-      token: this.jwtService.sign({ email }, { subject: client.id }),
+      token: this.jwtService.sign({ email }, { subject: infor.client.id }),
     };
   }
 }

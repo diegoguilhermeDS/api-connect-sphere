@@ -16,7 +16,7 @@ export class ClientPrismaRepository implements ClientRepository {
     const infor = new Information();
 
     const { email, phone, ...rest } = data;
-    const dataInformation = { email: email, phone: phone };
+    const dataInformation = { email: email, phone: phone, primary: true };
 
     Object.assign(infor, { ...dataInformation });
     Object.assign(client, { ...rest });
@@ -34,6 +34,7 @@ export class ClientPrismaRepository implements ClientRepository {
             id: true,
             email: true,
             phone: true,
+            primary: true,
           },
         },
       },
@@ -51,6 +52,7 @@ export class ClientPrismaRepository implements ClientRepository {
             id: true,
             email: true,
             phone: true,
+            primary: true,
           },
         },
       },
@@ -68,6 +70,7 @@ export class ClientPrismaRepository implements ClientRepository {
             id: true,
             email: true,
             phone: true,
+            primary: true,
           },
         },
       },
@@ -80,26 +83,30 @@ export class ClientPrismaRepository implements ClientRepository {
     const infor = await this.prisma.information.findUnique({
       where: {
         email,
-      }
+      },
     });
     if (infor) {
-      return infor
+      return infor;
     }
 
     return null;
   }
 
-  async findByEmailToAuth(email: string): Promise<Client> {
+  async findByEmailToAuth(email: string): Promise<
+    Information & {
+      client: Client;
+    }
+  > {
     const infor = await this.prisma.information.findUnique({
       where: {
         email,
       },
       include: {
-        client: true
-      }
+        client: true,
+      },
     });
     if (infor) {
-      return infor.client
+      return infor;
     }
 
     return null;
@@ -129,9 +136,10 @@ export class ClientPrismaRepository implements ClientRepository {
             id: true,
             email: true,
             phone: true,
+            primary: true,
           },
-        }
-      }
+        },
+      },
     });
 
     return plainToInstance(Client, client);

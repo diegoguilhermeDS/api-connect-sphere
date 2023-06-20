@@ -13,24 +13,30 @@ export class ClientInMemoryRepository implements ClientRepository {
     const newInfor = new Information();
     const newClient = new Client();
 
-    const dataInformation = {client_id: newClient.id, email: data.email, phone: data.phone}
-    const dataClient = {name: data.name, password: data.password}
-    
-    Object.assign(newInfor, {...dataInformation})
-    Object.assign(newClient, {...dataClient});
+    const dataInformation = {
+      client_id: newClient.id,
+      email: data.email,
+      phone: data.phone,
+    };
+    const dataClient = { name: data.name, password: data.password };
+
+    Object.assign(newInfor, { ...dataInformation });
+    Object.assign(newClient, { ...dataClient });
 
     clients.push(newClient);
-    information.push(newInfor)
-    return plainToInstance(Client, {...newClient, ...data});
+    information.push(newInfor);
+    return plainToInstance(Client, { ...newClient, ...data });
   }
 
   findAll(): Promise<Client[]> | Client[] {
-    const clientsList = clients.filter(client => client.is_active == true)
+    const clientsList = clients.filter((client) => client.is_active == true);
 
     const clientsFullInfor = clientsList.map((client) => {
-      const inforClient = information.find(infor => infor.clientId == client.id)
-      return {...client, email: inforClient.email, phone: inforClient.phone}
-    })
+      const inforClient = information.find(
+        (infor) => infor.clientId == client.id,
+      );
+      return { ...client, email: inforClient.email, phone: inforClient.phone };
+    });
 
     return plainToInstance(Client, clientsFullInfor);
   }
@@ -43,21 +49,27 @@ export class ClientInMemoryRepository implements ClientRepository {
   findByEmail(email: string): Promise<Information> | Information {
     const infor = information.find((infor) => infor.email == email);
 
-    return plainToInstance(Information, infor)
+    return plainToInstance(Information, infor);
   }
 
-  findByEmailToAuth(email: string): Promise<Client> | Client {
+  findByEmailToAuth(email: string): Information & {
+    client: Client;
+  } {
     const infor = information.find((infor) => infor.email == email);
 
-    const client = clients.find((client) => client.id == infor.clientId)
+    const client = clients.find((client) => client.id == infor.clientId);
+    const responseInformation = {
+      ...infor,
+      client: client,
+    };
 
-    return plainToInstance(Client, client)
+    return responseInformation;
   }
 
   findByPhone(phone: string): Information | Promise<Information> {
     const infor = information.find((infor) => infor.phone == phone);
 
-    return plainToInstance(Information, infor)
+    return plainToInstance(Information, infor);
   }
 
   update(id: string, data: UpdateClientDto): Promise<Client> | Client {

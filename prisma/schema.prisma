@@ -37,6 +37,7 @@ model Information {
   id        String   @id
   email     String?  @unique
   phone     String?  @unique
+  primary   Boolean
   client    Client?  @relation(fields: [clientId], references: [id], onDelete: Cascade)
   clientId  String?
   contact   Contact? @relation(fields: [contactId], references: [id], onDelete: Cascade)

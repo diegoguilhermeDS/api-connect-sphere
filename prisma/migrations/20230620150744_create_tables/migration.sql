@@ -24,6 +24,7 @@ CREATE TABLE "informations" (
     "id" TEXT NOT NULL,
     "email" TEXT,
     "phone" TEXT,
+    "primary" BOOLEAN NOT NULL,
     "clientId" TEXT,
     "contactId" TEXT,
 

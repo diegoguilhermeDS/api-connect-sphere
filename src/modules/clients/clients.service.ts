@@ -50,8 +50,8 @@ export class ClientsService {
   }
 
   async findByEmailToAuth(email: string) {
-    const client = await this.clientRepository.findByEmailToAuth(email)
-    return client
+    const infor = await this.clientRepository.findByEmailToAuth(email)
+    return infor
   }
 
   async update(id: string, updateClientDto: UpdateClientDto, userId: string) {

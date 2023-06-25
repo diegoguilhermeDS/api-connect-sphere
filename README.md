@@ -1,38 +1,114 @@
+<h1 align="center">
+     🌐 <a href="#" alt="api connect sphere"> Connect Sphere </a>
+</h1>
+
+<h3 align="center">
+    🤝 Seu gerenciamento de clientes e contatos. ajudamos você a fortalecer seus relacionamentos com os clientes e a organizar suas informações de contato de maneira eficaz.💙
+</h3>
+
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/diegoguilhermeDS/connect-sphere?color=%2304D361">
+
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/diegoguilhermeDS/connect-sphere">
+
+  <a href="https://github.com/diegoguilhermeDS/connect-sphere/commits/master">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/diegoguilhermeDS/connect-sphere">
+  </a>
+  
+  <a href="https://github.com/diegoguilhermeDS/connect-sphere/blob/main/LICENSE">
+    <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen">
+  </a>
+   
+   <a href="https://github.com/diegoguilhermeDS/connect-sphere/stargazers">
+    <img alt="Stargazers" src="https://img.shields.io/github/stars/diegoguilhermeDS/connect-sphere?style=social">
+  </a>
+
+  <a href="https://github.com/diegoguilhermeDS">
+    <img alt="Feito pela Diego Guilherme" src="https://img.shields.io/badge/feito%20por-DiegoGuilherme-%237519C1">
+  </a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+<h4 align="center">
+	🚧   Concluído 🚀 🚧
+</h4>
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
+<p align="center">
+ <a href="#-sobre-o-projeto">Sobre</a> •
+ <a href="#-funcionalidades">Funcionalidades</a> •
+ <a href="#-como-executar-o-projeto">Como executar</a> • 
+ <a href="#-tecnologias">Tecnologias</a> • 
+ <a href="#-autor">Autor</a> • 
+ <a href="#user-content--licença">Licença</a>
 </p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## 💻 Sobre o projeto
+Bem-vindo ao Conectar Esfera!
+Nosso site é uma plataforma completa para gerenciamento de clientes e contatos, oferecendo uma experiência intuitiva e eficiente para profissionais e empresas. Com recursos poderosos e uma interface amigável, ajudamos você a fortalecer seus relacionamentos com clientes e organizar suas informações de contato de forma eficaz.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## ⚙️ Funcionalidades
+- [x] Cadastro de usuário
+- [x] Login
+- [x] Usuário
+    - Editar informações do usuário
+    - Remover usuário
+    - Adicionar Contato
+- [x] Contato
+    - Editar as informações do contato
+    - Remover o contato
+    - Adicionar novas informações para contato
 
-## Installation
+## 🚀 Como executar o projeto
+
+### Pré-requisitos
+
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+[Git](https://git-scm.com), [Node.js](https://nodejs.org/en/). 
+Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
+
+#### 🎲 Rodando o Backend (servidor)
+
+```bash
+
+# Clone este repositório
+$ git clone git@github.com:diegoguilhermeDS/connect-sphere.git
+
+# Acesse a pasta do projeto no seu terminal/cmd
+$ cd api-connect-sphere
+
+# Instale as dependências
+$ npm install
+
+# Execute a aplicação em modo de desenvolvimento
+$ npm run start:dev
+
+# A aplicação será aberta na porta:3000 - acesse http://localhost:3001
+
+```
+
+
+
+
+
+## :link: Link to documentation
+
+[documatation](https://connect-sphere-api.onrender.com/api)
+
+
+## 📝 Description
+
+The Connect Sphere API is an application programming interface developed for the Connect Sphere project. This API offers advanced features for creating and managing customers and their contacts, providing a comprehensive solution for organizing and communicating efficiently within a customer network.
+
+With the Connect Sphere API, developers can easily implement functionality that allows users to create customer profiles, add and manage contacts associated with each specific customer.
+
+## How to run the project ?
+
+### Installation
 
 ```bash
 $ yarn install
 ```
 
-## Running the app
+### Running the app
 
 ```bash
 # development
@@ -45,7 +121,7 @@ $ yarn run start:dev
 $ yarn run start:prod
 ```
 
-## Test
+### Test
 
 ```bash
 # unit tests
@@ -57,17 +133,3 @@ $ yarn run test:e2e
 # test coverage
 $ yarn run test:cov
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).

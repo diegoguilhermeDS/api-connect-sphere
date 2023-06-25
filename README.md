@@ -84,52 +84,55 @@ $ npm run start:dev
 # A aplicação será aberta na porta:3000 - acesse http://localhost:3001
 
 ```
+<p align="center">
+    <a href="https://insomnia.rest/run/?label=Connect%20Sphere&uri=https%3A%2F%2Fraw.githubusercontent.com%2FdiegoguilhermeDS%2Fapi-connect-sphere%2Fdevelop%2Fworkspace" target="_blank"><img src="https://insomnia.rest/images/run.svg" alt="Run in Insomnia"></a>
+</p>
 
-
-
-
-
-## :link: Link to documentation
-
-[documatation](https://connect-sphere-api.onrender.com/api)
-
-
-## 📝 Description
-
-The Connect Sphere API is an application programming interface developed for the Connect Sphere project. This API offers advanced features for creating and managing customers and their contacts, providing a comprehensive solution for organizing and communicating efficiently within a customer network.
-
-With the Connect Sphere API, developers can easily implement functionality that allows users to create customer profiles, add and manage contacts associated with each specific customer.
-
-## How to run the project ?
-
-### Installation
+#### ⚗️ Rodando os Tests (Jest)
 
 ```bash
-$ yarn install
-```
 
-### Running the app
-
-```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
-```
-
-### Test
-
-```bash
 # unit tests
-$ yarn run test
+$ npm run test
 
 # e2e tests
-$ yarn run test:e2e
+$ npm run test:e2e
 
 # test coverage
-$ yarn run test:cov
+$ npm run test:cov
+
 ```
+
+## 🛠 Tecnologias
+
+As seguintes ferramentas foram usadas na construção do projeto: ([NestJs](https://nestjs.com/)  +  [TypeScript](https://www.typescriptlang.org/))
+
+-   **[Class validator](https://github.com/typestack/class-validator)**
+-   **[Class transformer](https://github.com/typestack/class-transformer)**
+-   **[Bcrypt](https://www.npmjs.com/package/bcrypt)**
+-   **[dotENV](https://github.com/motdotla/dotenv)**
+-   **[Prisma](https://www.prisma.io/)**
+-   **[PostgreSQL](https://www.postgresql.org/)**
+
+> Veja o arquivo  [package.json](https://github.com/diegoguilhermeDS/api-connect-sphere/blob/8841a77a0aa90c0e8e45d0e0326ecc0ab4650287/package.json)
+
+## 🦸 Autor
+
+<a href="https://github.com/diegoguilhermeDS">
+ <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/110187246?v=4" width="100px;" alt=""/>
+ <br />
+ <sub><b>Diego Guilherme</b></sub></a> <a href="https://github.com/diegoguilhermeDS" title="Github">🚀</a>
+ <br />
+
+[![Linkedin Badge](https://img.shields.io/badge/-Diego-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/diegoguilhermeds/)](https://www.linkedin.com/in/tgmarinho/) 
+[![Gmail Badge](https://img.shields.io/badge/-diegoguilherme752@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:diegoguilherme752@gmail.com)](mailto:diegoguilherme752@gmail.com)
+
+
+## 📝 Licença
+Este projeto esta sobe a licença [MIT](./LICENSE).
+
+Feito com ❤️ por Diego Guilherme 👋🏽 [Entre em contato!](https://www.linkedin.com/in/diegoguilhermeds/)
+
+##  Versões do README
+
+[Português 🇧🇷](./README.md)  |  [Inglês 🇺🇸](./README-en.md) 

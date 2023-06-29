@@ -7,19 +7,19 @@
 </h3>
 
 <p align="center">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/diegoguilhermeDS/connect-sphere?color=%2304D361">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/diegoguilhermeDS/api-connect-sphere?color=%2304D361">
 
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/diegoguilhermeDS/connect-sphere">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/diegoguilhermeDS/api-connect-sphere">
 
   <a href="https://github.com/diegoguilhermeDS/connect-sphere/commits/master">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/diegoguilhermeDS/connect-sphere">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/diegoguilhermeDS/api-connect-sphere">
   </a>
   
-  <a href="https://github.com/diegoguilhermeDS/connect-sphere/blob/main/LICENSE">
+  <a href="https://github.com/diegoguilhermeDS/api-connect-sphere/blob/main/LICENSE">
     <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen">
   </a>
    
-   <a href="https://github.com/diegoguilhermeDS/connect-sphere/stargazers">
+   <a href="https://github.com/diegoguilhermeDS/api-connect-sphere/stargazers">
     <img alt="Stargazers" src="https://img.shields.io/github/stars/diegoguilhermeDS/connect-sphere?style=social">
   </a>
 
